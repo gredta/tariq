@@ -184,6 +184,7 @@ a img .top-nav{
 
 .top-nav .right-nav .active{
     font-family: "Apple Chancery", sans-serif;
+    padding-left: 0px;
 }
 
 .bottom-left-nav .active{
