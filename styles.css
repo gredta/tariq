@@ -182,6 +182,10 @@ a img .top-nav{
     font-family: "Apple Chancery", sans-serif;
 }
 
+.top-nav .right-nav .active{
+    font-family: "Apple Chancery", sans-serif;
+}
+
 .bottom-left-nav.active{
     font-family: "Apple Chancery", sans-serif;
 }
