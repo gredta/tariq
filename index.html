@@ -59,10 +59,11 @@
     <label for="keywordFilter">Filter by Keyword:</label>
     <input type="text" id="keywordFilter" placeholder="global, pastel, etc." onkeydown="handleKeyPress(event)">
     <br>
-    <input type="checkbox" id="albumCoverCheckbox"><label for="albumCoverCheckbox">Album Cover</label>
-    <input type="checkbox" id="socialMediaCheckbox"><label for="socialMediaCheckbox">Social Media</label>
-    <input type="checkbox" id="videosCheckbox"><label for="videosCheckbox">Videos</label>
-    <input type="checkbox" id="graphicartworkCheckbox"><label for="graphicartworkCheckbox">Graphic Artwork</label>
+    <input type="checkbox" id="albumCoverCheckbox" name="category" value="album cover"><label for="albumCoverCheckbox">Album Cover</label>
+    <input type="checkbox" id="socialMediaCheckbox" name="category" value="social media"><label for="socialMediaCheckbox">Social Media</label>
+    <input type="checkbox" id="videosCheckbox" name="category" value="videos"><label for="videosCheckbox">Videos</label>
+    <input type="checkbox" id="graphicartworkCheckbox" name="category" value="graphic artwork"><label for="graphicartworkCheckbox">Graphic Artwork</label>
+    
 
 
     <!-- Earliest known example -->
@@ -535,7 +536,8 @@
 
 </body>
 
-<script>const keywordFilter = document.getElementById("keywordFilter");
+<script>
+const keywordFilter = document.getElementById("keywordFilter");
     const earliestKnownExample = document.getElementById("earliestKnownExample");
     const earliestKnownExampleStart = document.getElementById("earliestKnownExampleStart");
     const earliestKnownExampleEnd = document.getElementById("earliestKnownExampleEnd");
@@ -561,7 +563,7 @@
     searchButton.addEventListener("click", searchHandler);
     
     function clearFiltersHandler() {
-    // Clear all filter fields, including the keyword filter
+    // Clear all filter fields
     keywordFilter.value = "";
     earliestKnownExample.value = "between";
     earliestKnownExampleStart.value = "";
@@ -574,7 +576,6 @@
     document.getElementById("socialMediaCheckbox").checked = false;
     document.getElementById("videosCheckbox").checked = false;
     document.getElementById("graphicartworkCheckbox").checked = false;
-    // Add more lines for other checkboxes as needed
     
     searchHandler();
     }
@@ -592,6 +593,20 @@
     const socialMediaChecked = document.getElementById("socialMediaCheckbox").checked;
     const videosChecked = document.getElementById("videosCheckbox").checked;
     const graphicartworkChecked = document.getElementById("graphicartworkCheckbox").checked;
+
+    if(albumCoverChecked){
+        keywords.push("album cover");
+    }
+    if(socialMediaChecked){
+        keywords.push("social media");
+    }
+    if(videosChecked){
+        keywords.push("video");
+    }
+    if(graphicartworkChecked){
+        keywords.push("graphic artwork")
+    }
+
     
     // Loop through each media container to apply filters
     mediaContainers.forEach(container => {
@@ -601,12 +616,15 @@
     const mediaName = mediaItem.alt.toLowerCase();
     const mediaTaxonomy = mediaItem.getAttribute("data-taxonomy").toLowerCase().split(',').map(tag => tag.trim());
     
+
+
     // Check if the media matches the selected filters
     const isKeywordMatch = keywords.every(keyword => (
         keyword === "" ||
         mediaName.includes(keyword) ||
         mediaTaxonomy.some(tag => tag.includes(keyword))
     ));
+
     
     // Check if the media type matches the selected checkboxes
     const isalbumCoverMatch = !albumCoverChecked || mediaTaxonomy.includes("album cover");
@@ -617,23 +635,29 @@
     const mediaYear = parseInt(mediaItem.getAttribute("data-earliest"));
     const isEarliestExampleMatch = checkYearRange(mediaYear, earliestExampleType, earliestStart, earliestEnd);
     const isDecadeMatch = selectedDecade === "" || mediaItem.getAttribute("data-decade") === selectedDecade;
+
+
     
     
     // Show/hide the media container based on filter results
-    if (isKeywordMatch && isEarliestExampleMatch && isDecadeMatch) {
-        if ((socialMediaChecked && isSocialMediaMatch) || (graphicartworkChecked && isgraphicartworkMatch) || (albumCoverChecked && isalbumCoverMatch) ||(videosChecked && isvideosMatch) || (graphicartworkChecked && isgraphicartworkMatch)) {
-            container.style.display = "block";
-        } else if (!socialMediaChecked && !graphicartworkChecked && !albumCoverChecked && !videosChecked && !graphicartworkChecked) {
-            container.style.display = "block";
-        } 
-        else {
-            container.style.display = "none";
-        }
-    } 
-    else {
+    if (isKeywordMatch || isEarliestExampleMatch || isDecadeMatch) {
+    // Ensures that if any specific condition is checked, that condition must also be matched.
+    // If none are checked but there's a keyword match, the container will still display.
+    if ((isKeywordMatch && !socialMediaChecked && !graphicartworkChecked && !albumCoverChecked && !videosChecked) ||
+        (socialMediaChecked && isSocialMediaMatch) ||
+        (graphicartworkChecked && isgraphicartworkMatch) ||
+        (albumCoverChecked && isalbumCoverMatch) ||
+        (videosChecked && isvideosMatch)) {
+        container.style.display = "block";
+    } else {
         container.style.display = "none";
     }
+} else {
+    container.style.display = "none";
+}
     });
+
+
     
     // Sort the displayed media containers
     const sortedContainers = mediaContainers.filter(container => container.style.display !== "none");
@@ -641,10 +665,11 @@
     const aName = a.querySelector('.media').alt.toLowerCase();
     const bName = b.querySelector('.media').alt.toLowerCase();
     if (selectedSortOrder === "nameAZ") {
-        return aName.localeCompare(bName);
-    } else {
-        return bName.localeCompare(aName);
-    }
+            return aName.localeCompare(bName);
+        } 
+        else {
+            return bName.localeCompare(aName);
+        }
     });
     
     // Clear the media gallery
@@ -656,19 +681,21 @@
     
     
     function checkYearRange(mediaYear, rangeType, startYear, endYear) {
-    if (isNaN(mediaYear)) {
-    return true; // Display media without a year
-    }
-    
-    if (rangeType === "before" && !isNaN(startYear)) {
-    return mediaYear < startYear;
-    } else if (rangeType === "after" && !isNaN(endYear)) {
-    return mediaYear > endYear;
-    } else if (rangeType === "between" && !isNaN(startYear) && !isNaN(endYear)) {
-    return mediaYear >= startYear && mediaYear <= endYear;
-    } else {
-    return true; // Display media if no year range is specified
-    }
+        if (isNaN(mediaYear)) {
+            return true; // Display media without a year
+        }
+        if (rangeType === "before" && !isNaN(startYear)) {
+            return mediaYear < startYear;
+        } 
+        else if (rangeType === "after" && !isNaN(endYear)) {
+            return mediaYear > endYear;
+        } 
+        else if (rangeType === "between" && !isNaN(startYear) && !isNaN(endYear)) {
+            return mediaYear >= startYear && mediaYear <= endYear;
+        } 
+        else {
+            return true; // Display media if no year range is specified
+        }
     }
     
     // Initial filtering and sorting

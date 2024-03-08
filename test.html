@@ -2,412 +2,69 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>THE GULF GRAPHICS INDEX</title>
-    <style>
-
-    </style>
 </head>
-<body>
-    <div class="top-left-nav">
-        <a href="/about.html">ABOUT</a>
-    </div>
+<body class="bg-gray-100">
+    <!-- Existing navigation and other content remains unchanged -->
     
-    <div class="top-right-nav">
-        <a href="/thesis.html">THESIS</a>
-    </div>
-    
-    <div class="bottom-left-nav">
-        <a href="/contact.html">CONTACT/SUBMIT</a>
-    </div>
-    <a class="active" href="index.html"><h1>THE GULF GRAPHICS INDEX</h1></a>
-
-    <div class="filter-box">
-    <h2>Search and Filter By:</h2>
-    <!-- Filter by keyword -->
-    <label for="keywordFilter">Filter by Keyword:</label>
-    <input type="text" id="keywordFilter" placeholder="global, pastel, etc." onkeydown="handleKeyPress(event)">
-    <br>
-    <input type="checkbox" id="albumCoverCheckbox"><label for="albumCoverCheckbox">Album Cover</label>
-    <input type="checkbox" id="socialMediaCheckbox"><label for="socialMediaCheckbox">Social Media</label>
-    <input type="checkbox" id="videosCheckbox"><label for="videosCheckbox">Videos</label>
-    <input type="checkbox" id="graphicartworkCheckbox"><label for="graphicartworkCheckbox">Graphic Artwork</label>
-
-
-    <!-- Earliest known example -->
-    <br><label for="earliestKnownExample">Earliest Known Example:</label>
-    <select id="earliestKnownExample">
-        <option value="between">Between</option>
-    </select>
-    <input type="number" id="earliestKnownExampleStart" placeholder="Start Year" onkeydown="handleKeyPress(event)">
-    <input type="number" id="earliestKnownExampleEnd" placeholder="End Year" onkeydown="handleKeyPress(event)">
-
-   
-
-    <!-- Relevant Decade -->
-    <br><label for="relevantDecade">Relevant Decade:</label>
-    <select id="relevantDecade">
-        <option value="">Any</option>
-        <option value="1980s">1980s</option>
-        <option value="1990s">1990s</option>
-        <option value="2000s">2000s</option>
-        <option value="2010s">2010s</option>
-        <option value="2020s">2020s</option>
-        <!-- Add more decades as needed -->
-    </select>
-
-    <!-- Sort and Order options -->
-    <br><label for="sortOrder">Sort by:</label>
-    <select id="sortOrder">
-        <option value="nameAZ">Name (A-Z)</option>
-        <option value="nameZA">Name (Z-A)</option>
-        <!-- Add more sorting options as needed -->
-    </select>
-
-    <!-- Search button -->
-    <br><button id="searchButton" class="filter-button">Search</button>
-
-    <!-- Clear Filters button -->
-    <button id="clearFilters" class="filter-button">Clear Filters</button>
-    </div>
-
-    <!-- Media Gallery -->
-    <div class="media-gallery" id="mediaGallery">
-
-        <!-- Media Item #1-->
-        <div class="media-container">
-            <img class="media" data-type="image" data-taxonomy="ahlam, funoon al emarat, 2001, yellow, female singer, khaleeji" data-earliest="2001" data-decade="2000s" data-original-width="150" src="media/ahlam_lealmak_bas_2001.jpeg" alt="Lealmak… Bas!">
-            <div class="text-box">
-                <p>Ahlam. “Lealmak… Bas!”
-                    <br>Funoon Al Emarat, 2001.
-                    <h4 class="design">Design: Funoon Al Emarat Art Department</h4>
-                    <h5 class="tags">
-                        <button class="tag-button" data-tag="ahlam">#ahlam</button>
-                        <button class="tag-button" data-tag="funoon al emarat">#funoon al emarat</button>
-                        <button class="tag-button" data-tag="2001">#2001</button>
-                        <button class="tag-button" data-tag="yellow">#yellow</button>
-                        <button class="tag-button" data-tag="female singer">#female singer</button>
-                        <button class="tag-button" data-tag="khaleeji">#khaleeji</button>
-                    </h5>
-                </p>
+    <!-- Search and Filter Box -->
+    <div class="p-5">
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-4">
+                    <h2 class="font-bold text-xl mb-4">Search and filter by...</h2>
+                    <div>
+                        <label for="keyword" class="block text-sm font-medium text-gray-700">Keyword</label>
+                        <input type="text" id="keyword" class="mt-1 block w-full shadow-sm sm:text-sm rounded-md" placeholder="videos">
+                    </div>
+                    <div>
+                        <label for="earliestKnownExample" class="block text-sm font-medium text-gray-700">Earliest Known Example</label>
+                        <select id="earliestKnownExample" class="block w-full mt-1 shadow-sm sm:text-sm rounded-md">
+                            <option value="between">between</option>
+                            <!-- Add other options here -->
+                        </select>
+                    </div>
+                    <div>
+                        <label for="endOfPopularity" class="block text-sm font-medium text-gray-700">End of Popularity</label>
+                        <select id="endOfPopularity" class="block w-full mt-1 shadow-sm sm:text-sm rounded-md">
+                            <option value="between">between</option>
+                            <!-- Add other options here -->
+                        </select>
+                    </div>
+                    <div>
+                        <label for="relevantDecade" class="block text-sm font-medium text-gray-700">Relevant Decade</label>
+                        <select id="relevantDecade" class="block w-full mt-1 shadow-sm sm:text-sm rounded-md">
+                            <option value="">--</option>
+                            <!-- Add more decades as needed -->
+                        </select>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <h2 class="font-bold text-xl mb-4 invisible">Sort and order by...</h2>
+                    <div>
+                        <label for="sortOrder" class="block text-sm font-medium text-gray-700">Sort by</label>
+                        <select id="sortOrder" class="block w-full mt-1 shadow-sm sm:text-sm rounded-md">
+                            <option value="nameAZ">Name</option>
+                            <!-- Add more sorting options as needed -->
+                        </select>
+                    </div>
+                    <div>
+                        <label for="order" class="block text-sm font-medium text-gray-700">Order</label>
+                        <select id="order" class="block w-full mt-1 shadow-sm sm:text-sm rounded-md">
+                            <option value="az">A-Z</option>
+                            <!-- Add other order options here -->
+                        </select>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <button class="text-white bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="button" id="resetFilters">Reset Filters</button>
+                        <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="button" id="search">Search</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- End Media Item #1-->
-
-        <!-- Media Item #2-->
-        <div class="media-container">
-            <img class="media" data-type="image" data-taxonomy="haifa wehbe, rotana, 2005, female singer, pink, fur, lebanese" data-earliest="2005" data-decade="2000s" data-original-width="150" src="media/wehbe_haifa_badi_eish_2005.jpeg" alt="Image 2">
-            <div class="text-box">
-                <p>Wehbe, Haifa. “Baddi Eish”
-                    <br>Rotana, 2005.
-                    <h4 class="design">Design: Unknown <br>Photography: Roger Moukarzel</h4>
-                    <h5 class="tags">
-                        <button class="tag-button" data-tag="haifa wehbe">#haifa wehbe</button>
-                        <button class="tag-button" data-tag="rotana">#rotana</button>
-                        <button class="tag-button" data-tag="2005">#2005</button>
-                        <button class="tag-button" data-tag="female singer">#female singer</button>
-                        <button class="tag-button" data-tag="pink">#pink</button>
-                        <button class="tag-button" data-tag="fur">#fur</button>
-                        <button class="tag-button" data-tag="lebanese">#lebanese</button>
-                    </h5>
-                </p>
-            </div>
-        </div>
-        <!-- End Media Item #2-->
-
-        <!-- Media Item #3-->
-        <div class="media-container">
-            <img class="media" data-type="image" data-taxonomy="illustration, drawing, graphic design, social media, instagram post, 2010s, 2018" data-earliest="2018" data-decade="2010s" data-original-width="150" src="media/ana_wa_sadeeqti.jpeg" alt="Image 3">
-            <div class="text-box">
-                <p>		“انا وصديقتي مصيبة!” [Me and my friend are a problem!]
-                    <br>Instagram post, 2018.
-                    <h4 class="design">Illustration: Sarra_Art<br>Typography: Amoooona_65</h4>
-                    <h5 class="tags">
-                        <button class="tag-button" data-tag="illustration">#illustration</button>
-                        <button class="tag-button" data-tag="drawing">#drawing</button>
-                        <button class="tag-button" data-tag="graphic design">#graphic design</button>
-                        <button class="tag-button" data-tag="social media">#social media</button>
-                        <button class="tag-button" data-tag="instagram post">#instagram post</button>
-                        <button class="tag-button" data-tag="2010s">#2010s</button>
-                        <button class="tag-button" data-tag="2018">#2018</button>
-                    </h5>
-                </p>
-            </div>
-        </div>
-        <!-- End Media Item #3-->
-
-        <!-- Media Item #4-->
-        <div class="media-container">
-            <img class="media" data-type="image" data-taxonomy="graphic design, social media, instagram post, WhatsApp sticker, 2010s, 2013, forum post" data-earliest="2013" data-decade="2010s" data-original-width="150" src="media/ya_rab_amoot.png" alt="Image 4">
-            <div class="text-box">
-                <p>“يا رب اموت” [God, I hope I die]
-                    <br>Image post, approx. 2013.
-                    <h4 class="design">Design: www.pic.elman<br>ysat.com (Dead website)</h4>
-                    <h5 class="tags">
-                        <button class="tag-button" data-tag="graphic design">#graphic design</button>
-                        <button class="tag-button" data-tag="social media">#social media</button>
-                        <button class="tag-button" data-tag="instagram post">#instagram post</button>
-                        <button class="tag-button" data-tag="whatsapp sticker">#whatsapp sticker</button>
-                        <button class="tag-button" data-tag="2010s">#2010s</button>
-                        <button class="tag-button" data-tag="2013">#2013</button>
-                        <button class="tag-button" data-tag="forum post">#forum post</button>
-                    </h5>
-                </p>
-            </div>
-        </div>
-        <!-- End Media Item #4-->
-
-        <!-- Media Item #5-->
-        <div class="media-container">
-            <img class="media" data-type="image" data-taxonomy="ayman zabib, rotana, 2001, sky, male singer, lebanese" data-earliest="2006" data-decade="2000s" data-original-width="150" src="media/zbib_ayman_qalouly_ansak_2006.png" alt="Qalouly Ansak">
-            <div class="text-box">
-                <p>Zbib, Ayman. “Qalouly Ansak”
-                    <br>Rotana, 2006.
-                    <h4 class="design">Design: Unknown.<br>Photography: Unknown.</h4>
-                    <h5 class="tags">
-                        <button class="tag-button" data-tag="ayman zbib">#ayman zbib</button>
-                        <button class="tag-button" data-tag="rotana">#rotana</button>
-                        <button class="tag-button" data-tag="2006">#2006</button>
-                        <button class="tag-button" data-tag="2000s">#2000s</button>
-                        <button class="tag-button" data-tag="sky">#sky</button>
-                        <button class="tag-button" data-tag="male singer">#male singer</button>
-                        <button class="tag-button" data-tag="lebanese">#lebanese</button>
-                    </h5>
-                </p>
-            </div>
-        </div>
-        <!-- End Media Item #5-->
-
-<!-- Media Item #6-->
-        <div class="media-container">
-            <img class="media" data-type="image" data-taxonomy="shams, stallions, 2006, animal print, female singer, khaleeji" data-earliest="2006" data-decade="2000s" data-original-width="150" src="media/shams_muzahara_nesaiea_2006.png" alt="Muzahara Nesaiea">
-            <div class="text-box">
-                <p>Shams. “Muzahara Nesaiea”
-                    <br>Stallion Records, 2006.
-                    <h4 class="design">Design: Georges Youssef<br>Photography: Rami Barbour.</h4>
-                    <h5 class="tags">
-                        <button class="tag-button" data-tag="shams">#shams</button>
-                        <button class="tag-button" data-tag="stallion">#stallion</button>
-                        <button class="tag-button" data-tag="2006">#2006</button>
-                        <button class="tag-button" data-tag="2000s">#2000s</button>
-                        <button class="tag-button" data-tag="animal print">#animal print</button>
-                        <button class="tag-button" data-tag="female singer">#female singer</button>
-                        <button class="tag-button" data-tag="khaleeji">#khaleeji</button>
-                    </h5>
-                </p>
-            </div>
-        </div>
-        <!-- End Media Item #6-->
-
-        <!-- Add more media here -->
     </div>
 
-    <!-- JavaScript for handling search and filter logic -->
-    <script>
-        const keywordFilter = document.getElementById("keywordFilter");
-        const earliestKnownExample = document.getElementById("earliestKnownExample");
-        const earliestKnownExampleStart = document.getElementById("earliestKnownExampleStart");
-        const earliestKnownExampleEnd = document.getElementById("earliestKnownExampleEnd");
-        const relevantDecade = document.getElementById("relevantDecade");
-        const sortOrder = document.getElementById("sortOrder");
-        const searchButton = document.getElementById("searchButton");
-        const clearFilters = document.getElementById("clearFilters");
-        const mediaGallery = document.getElementById("mediaGallery");
-
-        // Get all the media containers in the gallery
-        const mediaContainers = Array.from(mediaGallery.querySelectorAll(".media-container"));
-
-        // Clear all form elements on page load
-        keywordFilter.value = "";
-        earliestKnownExample.value = "between";
-        earliestKnownExampleStart.value = "";
-        earliestKnownExampleEnd.value = "";
-        relevantDecade.value = "";
-        sortOrder.value = "nameAZ";
-
-        // Add event listeners for clear filters and search
-        clearFilters.addEventListener("click", clearFiltersHandler);
-        searchButton.addEventListener("click", searchHandler);
-
-        function clearFiltersHandler() {
-    // Clear all filter fields, including the keyword filter
-    keywordFilter.value = "";
-    earliestKnownExample.value = "between";
-    earliestKnownExampleStart.value = "";
-    earliestKnownExampleEnd.value = "";
-    relevantDecade.value = "";
-    sortOrder.value = "nameAZ";
-
-    // Clear checkboxes
-    document.getElementById("albumCoverCheckbox").checked = false;
-    document.getElementById("socialMediaCheckbox").checked = false;
-    document.getElementById("videosCheckbox").checked = false;
-    document.getElementById("graphicartworkCheckbox").checked = false;
-    // Add more lines for other checkboxes as needed
-
-    searchHandler();
-}
-
-function searchHandler() {
-    const keywords = keywordFilter.value.toLowerCase().split(' ').map(keyword => keyword.trim());
-    const earliestExampleType = earliestKnownExample.value;
-    const earliestStart = parseInt(earliestKnownExampleStart.value);
-    const earliestEnd = parseInt(earliestKnownExampleEnd.value);
-    const selectedDecade = relevantDecade.value;
-    const selectedSortOrder = sortOrder.value;
-
-    // Get the values of the keyword checkboxes
-    const albumCoverChecked = document.getElementById("albumCoverCheckbox").checked;
-    const socialMediaChecked = document.getElementById("socialMediaCheckbox").checked;
-    const videosChecked = document.getElementById("videosCheckbox").checked;
-    const graphicartworkChecked = document.getElementById("graphicartworkCheckbox").checked;
-
-    // Loop through each media container to apply filters
-    mediaContainers.forEach(container => {
-        const mediaItem = container.querySelector('.media');
-        const textBox = container.querySelector('.text-box');
-        const mediaType = mediaItem.getAttribute("data-type");
-        const mediaName = mediaItem.alt.toLowerCase();
-        const mediaTaxonomy = mediaItem.getAttribute("data-taxonomy").toLowerCase().split(',').map(tag => tag.trim());
-
-        // Check if the media matches the selected filters
-        const isKeywordMatch = keywords.every(keyword => (
-            keyword === "" ||
-            mediaName.includes(keyword) ||
-            mediaTaxonomy.some(tag => tag.includes(keyword))
-        ));
-
-        // Check if the media type matches the selected checkboxes
-        const isalbumCoverMatch = !albumCoverChecked || mediaTaxonomy.includes("album cover");
-        const isSocialMediaMatch = !socialMediaChecked || mediaTaxonomy.includes("social media");
-        const isVideosMatch = !videosChecked || mediaTaxonomy.includes("videos");
-        const isGraphicartworkMatch = !graphicartworkChecked || mediaTaxonomy.includes("graphicartwork");
-
-        const mediaYear = parseInt(mediaItem.getAttribute("data-earliest"));
-        const isEarliestExampleMatch = checkYearRange(mediaYear, earliestExampleType, earliestStart, earliestEnd);
-        const isDecadeMatch = selectedDecade === "" || mediaItem.getAttribute("data-decade") === selectedDecade;
-
-        // Show/hide the media container based on filter results
-        if (isKeywordMatch && isEarliestExampleMatch && isDecadeMatch) {
-            if ((socialMediaChecked && isSocialMediaMatch) || (graphicartworkChecked && isgraphicartworkMatch)) {
-                container.style.display = "block";
-            } else if (!socialMediaChecked && !graphicartworkChecked) {
-                container.style.display = "block";
-            } else {
-                container.style.display = "none";
-            }
-        } else {
-            container.style.display = "none";
-        }
-    });
-
-    // Sort the displayed media containers
-    const sortedContainers = mediaContainers.filter(container => container.style.display !== "none");
-    sortedContainers.sort((a, b) => {
-        const aName = a.querySelector('.media').alt.toLowerCase();
-        const bName = b.querySelector('.media').alt.toLowerCase();
-        if (selectedSortOrder === "nameAZ") {
-            return aName.localeCompare(bName);
-        } else {
-            return bName.localeCompare(aName);
-        }
-    });
-
-    // Clear the media gallery
-    mediaGallery.innerHTML = '';
-
-    // Append the sorted media containers back to the gallery
-    sortedContainers.forEach(container => mediaGallery.appendChild(container));
-}
-
-
-function checkYearRange(mediaYear, rangeType, startYear, endYear) {
-    if (isNaN(mediaYear)) {
-        return true; // Display media without a year
-    }
-
-    if (rangeType === "before" && !isNaN(startYear)) {
-        return mediaYear < startYear;
-    } else if (rangeType === "after" && !isNaN(endYear)) {
-        return mediaYear > endYear;
-    } else if (rangeType === "between" && !isNaN(startYear) && !isNaN(endYear)) {
-        return mediaYear >= startYear && mediaYear <= endYear;
-    } else {
-        return true; // Display media if no year range is specified
-    }
-}
-
-        // Initial filtering and sorting
-        searchHandler();
-
-        function handleKeyPress(event) {
-            if (event.key === "Enter") {
-                searchHandler();
-            }
-        }
-
-        // Add event listeners to media containers to show the text box on click
-        mediaContainers.forEach(container => {
-            const mediaItem = container.querySelector('.media');
-            const originalWidth = parseInt(mediaItem.getAttribute('data-original-width'));
-
-            mediaItem.addEventListener('click', function() {
-                // Remove the 'bordered' class from all media containers first
-                mediaContainers.forEach(container => {
-                    container.classList.remove('bordered');
-                    const textBox = container.querySelector('.text-box');
-                    textBox.style.display = 'none';
-
-                    // Restore the original width of the images
-                    const originalWidth = parseInt(container.querySelector('.media').getAttribute('data-original-width'));
-                    container.querySelector('.media').style.width = originalWidth + 'px';
-                });
-
-                // Show the text box corresponding to the clicked media
-                const textBox = container.querySelector('.text-box');
-                textBox.style.display = 'grid';
-
-                // Add the 'bordered' class to the clicked media container
-                container.classList.add('bordered');
-                mediaItem.style.width = '450px';
-            });
-        });
-
-        // Add a click event to the document to close any open text boxes and remove border styles
-        document.addEventListener('click', function(event) {
-            if (!event.target.classList.contains("media")) {
-                mediaContainers.forEach(container => {
-                    const textBox = container.querySelector('.text-box');
-                    textBox.style.display = 'none';
-
-                    // Remove the 'bordered' class from all media containers when clicking off
-                    container.classList.remove('bordered');
-
-                    // Restore the original width of the images
-                    const originalWidth = parseInt(container.querySelector('.media').getAttribute('data-original-width'));
-                    container.querySelector('.media').style.width = originalWidth + 'px';
-                });
-            }
-        });
-
-// Get all the tag buttons
-const tagButtons = document.querySelectorAll(".tag-button");
-
-// Add click event listeners to the tag buttons
-tagButtons.forEach(button => {
-    button.addEventListener("click", function () {
-        // Get the tag value from the data-tag attribute
-        const tag = button.getAttribute("data-tag");
-
-        // Set the keyword filter to the clicked tag
-        keywordFilter.value = tag;
-
-        // Trigger the search handler to apply the filter
-        searchHandler();
-    });
-});
-
-        
-    </script>
+    <!-- Rest of the body content -->
 </body>
 </html>
